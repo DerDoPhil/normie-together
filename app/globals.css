@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+/*
+  CommunityCanvas Studio — colours taken verbatim from normies.art:
+  exactly two greys — light bg #e3e5e4 and dark #48494b for text AND borders.
+  No surfaces, no muted colour, no accents. Hierarchy comes from the
+  `robotastic` display font, size, and alpha steps of the one dark grey
+  (rgba(var(--fg-rgb), …)) — same approach normies.art uses.
+*/
+
+:root {
+  --bg: #e3e5e4; /* normies light grey — the only background */
+  --surface: #e3e5e4; /* cards = bg + 1px border, no fill */
+  --surface-2: #e3e5e4;
+  --fg: #48494b; /* normies dark grey — text AND borders */
+  --fg-rgb: 72, 73, 75;
+  --muted: rgba(72, 73, 75, 0.6); /* same grey, dimmed via alpha */
+  --border: #48494b;
+  --border-strong: #48494b;
+  --accent: #48494b; /* monochrome: highlight = the dark grey */
+  --accent-hover: #5c5e60;
+  --danger: #48494b;
+  --success: #48494b;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --font-display: var(--font-robotastic), "Courier New", monospace;
+  --font-mono: var(--font-geist-mono), "Courier New", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+}
+
+/* Link colour for real links only — NOT button-styled links (.nm-btn), whose
+   colour must come from the component classes. Base `a` rules are unlayered and
+   would otherwise override the @layer component colour, making accent link
+   buttons dark-text-on-dark. */
+a:not(.nm-btn) {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:not(.nm-btn):hover {
+  text-decoration: underline;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ---- Reusable component classes ---- */
+
+@layer components {
+  .nm-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+  .nm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border-strong);
+    background: var(--surface-2);
+    color: var(--fg);
+    cursor: pointer;
+    transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+  }
+  .nm-btn:hover:not(:disabled) {
+    border-color: var(--fg);
+    background: var(--fg);
+    color: var(--bg);
+  }
+  .nm-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .nm-btn-accent {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+    font-weight: 700;
+  }
+  .nm-btn-accent:hover:not(:disabled) {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
+
+  .nm-btn-danger {
+    background: transparent;
+    border-color: var(--danger);
+    color: var(--danger);
+  }
+  .nm-btn-danger:hover:not(:disabled) {
+    background: var(--danger);
+    color: var(--bg);
+  }
+
+  .nm-input {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    color: var(--fg);
+    outline: none;
+    width: 100%;
+  }
+  .nm-input:focus {
+    border-color: var(--accent);
+  }
+  .nm-input::placeholder {
+    color: var(--muted);
+  }
+
+  .nm-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .nm-chip {
+    display: inline-block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid var(--border-strong);
+    color: var(--muted);
+  }
+}
