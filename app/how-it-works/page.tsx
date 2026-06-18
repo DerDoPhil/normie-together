@@ -40,8 +40,8 @@ const STEPS = [
     n: "05",
     who: "Owner → Artist",
     chain: "optional",
-    title: "Tip the artist (and dev)",
-    body: "If the design is great, the owner can send the artist a direct ETH tip. On large edits, a tip to the tool’s developer is offered too. Always optional, always a direct transfer.",
+    title: "Tip the artist",
+    body: "If the design is great, the owner can reward the artist with a direct ETH tip. You don’t have to pay through the site — you can also just copy the artist’s address and send it from your own wallet. Always optional, always a direct transfer.",
   },
 ];
 
